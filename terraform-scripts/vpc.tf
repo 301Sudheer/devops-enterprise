@@ -45,7 +45,7 @@ resource "aws_subnet" "public_subnets" {
   count                   = length(var.public_subnet_cidr_blocks)
   vpc_id                  = aws_vpc.vprofileapp_vpc.id
   cidr_block              = var.public_subnet_cidr_blocks[count.index]
-  availability_zone       = var.availability_zone[0] # Replace with your desired availability zone
+  availability_zone       = var.availability_zone[count.index] # Replace with your desired availability zone
 
   tags = {
     Name = "VprofileApp-PublicSubnet-${count.index}"
