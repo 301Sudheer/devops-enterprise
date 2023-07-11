@@ -23,6 +23,7 @@ resource "aws_launch_template" "vprofile" {
   description = "Launch Template for Auto Scaling Group"
   network_interfaces {
     associate_public_ip_address = true
+    security_groups             = [aws_security_group.public_sg.id]
   }
   tag_specifications {
     resource_type = "instance"
@@ -33,5 +34,4 @@ resource "aws_launch_template" "vprofile" {
   }
   image_id        =  "ami-01b00b6482ae2109f"  # Replace with your desired AMI ID
   instance_type   = "t2.micro"  # Replace with your desired instance type
-  vpc_security_group_ids = [aws_security_group.public_sg.id]
 }
