@@ -31,7 +31,7 @@ pipeline {
                         // For Stage and Prod, switch to master branch
                         checkout(
                             [$class: 'GitSCM',
-                            branches: [[name: '*/terrform-scripts']],
+                            branches: [[name: '*/terraform-scripts']],
                             doGenerateSubmoduleConfigurations: false,
                             extensions: [],
                             submoduleCfg: [],
