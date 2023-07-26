@@ -23,7 +23,7 @@ pipeline {
                             submoduleCfg: [],
                             userRemoteConfigs: [[
                                 credentialsId: 'github-creds',
-                                url: 'git@github.com:ravithejajs/vprofile-app-enterprise.git'
+                                url: 'https://github.com/ravithejajs/vprofile-app-enterprise.git'
                             ]]
                             ]
                         )
@@ -37,7 +37,7 @@ pipeline {
                             submoduleCfg: [],
                             userRemoteConfigs: [[
                                 credentialsId: 'github-creds',
-                                url: 'git@github.com:ravithejajs/vprofile-app-enterprise.git'
+                                url: 'https://github.com/ravithejajs/vprofile-app-enterprise.git'
                             ]]
                             ]
                         )
