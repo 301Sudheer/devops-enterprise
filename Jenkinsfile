@@ -104,7 +104,7 @@ pipeline {
             steps {
                 script {
                     dir('Docker-files/app') {
-                        sh 'docker build -t vprofileapp:${version} .'
+                        sh "docker build -t vprofileapp:${version} . "
                     }
                 }
             }
