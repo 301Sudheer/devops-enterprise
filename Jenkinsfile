@@ -102,12 +102,14 @@ pipeline {
         }
         stage('Dockerize') {
             steps {
-		script {
-			dir('Docker-files/app')
-                		sh 'docker build -t vprofileapp:${version} .'
-		}
+                script {
+                    dir('Docker-files/app') {
+                        sh 'docker build -t vprofileapp:${version} .'
+                    }
+                }
             }
         }
+
 //         stage('Deploy to CodeDeploy') {
 //         steps {
 //             script {
