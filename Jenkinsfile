@@ -88,35 +88,48 @@ pipeline {
         //     }
         // }
 
-        stage("Upload Artifact s3") {
+        // stage("Upload Artifact s3") {
+        //     steps {
+        //         script {
+        //             sh "aws s3 cp target/vprofile-${version}.war s3://${S3_BUCKET}/vprofile-${version}-${DEPLOY_ENV}.war"
+        //         }
+        //     }
+        // }
+        stage('Copy') {
             steps {
-                script {
-                    sh "aws s3 cp target/vprofile-${version}.war s3://${S3_BUCKET}/vprofile-${version}-${DEPLOY_ENV}.war"
-                }
+                sh 'cp target/*.war Docker-files/app/'
             }
         }
-        stage('Deploy to CodeDeploy') {
-        steps {
-            script {
-            def deploymentGroup
-            switch (params.DEPLOY_ENV) {
-                case 'QA':
-                deploymentGroup = 'Vprofile-App-qa'
-                break
-                case 'Stage':
-                deploymentGroup = 'Vprofile-App-stage'
-                break
-                case 'Prod':
-                deploymentGroup = 'Vprofile-App-production'
-                break
-                default:
-                error('Invalid environment selected')
+        stage('Dockerize') {
+            steps {
+		script {
+			dir('Docker-files/app')
+                		sh 'docker build -t vprofileapp:${version} .'
+		}
             }
+        }
+//         stage('Deploy to CodeDeploy') {
+//         steps {
+//             script {
+//             def deploymentGroup
+//             switch (params.DEPLOY_ENV) {
+//                 case 'QA':
+//                 deploymentGroup = 'Vprofile-App-qa'
+//                 break
+//                 case 'Stage':
+//                 deploymentGroup = 'Vprofile-App-stage'
+//                 break
+//                 case 'Prod':
+//                 deploymentGroup = 'Vprofile-App-production'
+//                 break
+//                 default:
+//                 error('Invalid environment selected')
+//             }
 
-            sh "aws deploy create-deployment --application-name  vprofile-application --deployment-group-name ${deploymentGroup} --s3-location bucket=vprofile-bundle,key=deploy-bundle.zip,bundleType=zip"
-            }
-        }
-    }
-   }
-}
+//             sh "aws deploy create-deployment --application-name  vprofile-application --deployment-group-name ${deploymentGroup} --s3-location bucket=vprofile-bundle,key=deploy-bundle.zip,bundleType=zip"
+//             }
+//         }
+//     }
+//    }
+// }
 
