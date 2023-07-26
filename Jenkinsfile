@@ -104,34 +104,37 @@ pipeline {
             steps {
                 script {
                     dir('Docker-files/app') {
-                        sh "docker build -t vprofileapp:${version} . "
+                        sh "docker build -t 484472757370.dkr.ecr.ap-south-1.amazonaws.com/vprofile-qa:vprofileapp-${version} . "
+                        sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 484472757370.dkr.ecr.ap-south-1.amazonaws.com'
+                        sh "docker push 484472757370.dkr.ecr.ap-south-1.amazonaws.com/vprofile-qa:vprofileapp-${version}"
                     }
                 }
             }
         }
 
-//         stage('Deploy to CodeDeploy') {
-//         steps {
-//             script {
-//             def deploymentGroup
-//             switch (params.DEPLOY_ENV) {
-//                 case 'QA':
-//                 deploymentGroup = 'Vprofile-App-qa'
-//                 break
-//                 case 'Stage':
-//                 deploymentGroup = 'Vprofile-App-stage'
-//                 break
-//                 case 'Prod':
-//                 deploymentGroup = 'Vprofile-App-production'
-//                 break
-//                 default:
-//                 error('Invalid environment selected')
-//             }
 
-//             sh "aws deploy create-deployment --application-name  vprofile-application --deployment-group-name ${deploymentGroup} --s3-location bucket=vprofile-bundle,key=deploy-bundle.zip,bundleType=zip"
-//             }
-//         }
-//     }
+        stage('Deploy to CodeDeploy') {
+        steps {
+            script {
+            def deploymentGroup
+            switch (params.DEPLOY_ENV) {
+                case 'QA':
+                deploymentGroup = 'vprofile-docker'
+                break
+                case 'Stage':
+                deploymentGroup = 'Vprofile-App-stage'
+                break
+                case 'Prod':
+                deploymentGroup = 'Vprofile-App-production'
+                break
+                default:
+                error('Invalid environment selected')
+            }
+
+            sh "aws deploy create-deployment --application-name  vprofile-app --deployment-group-name ${deploymentGroup} --s3-location bucket=vprofile-bundle,key=deploy-bundle.zip,bundleType=zip"
+            }
+        }
+    }
    }
 }
 
