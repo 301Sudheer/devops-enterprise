@@ -111,7 +111,17 @@ pipeline {
                 }
             }
         }
-
+         stage('Create Deploy Bundle') {
+            steps {
+                script {
+                    dir('deploy-bundle') {
+                        sh "sed -i s/%version%/${version}/g ./*"
+                        sh 'zip -r ../deploy-bundle.zip ./*'
+                        sh "aws s3 cp ../deploy-bundle.zip s3://vprofile-bundle/deploy-bundle-${version}"
+                    }
+                }
+            }
+        }
 
         stage('Deploy to CodeDeploy') {
         steps {
@@ -131,7 +141,7 @@ pipeline {
                 error('Invalid environment selected')
             }
 
-            sh "aws deploy create-deployment --application-name  vprofile-app --deployment-group-name ${deploymentGroup} --s3-location bucket=vprofile-bundle,key=deploy-bundle.zip,bundleType=zip"
+            sh "aws deploy create-deployment --application-name  vprofile-app --deployment-group-name ${deploymentGroup} --s3-location bucket=vprofile-bundle,key=deploy-bundle-${version}.zip,bundleType=zip"
             }
         }
     }
