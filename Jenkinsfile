@@ -117,7 +117,7 @@ pipeline {
                     dir('deploy-bundle') {
                         sh "sed -i s/%version%/${version}/g ./*"
                         sh 'zip -r ../deploy-bundle.zip ./*'
-                        sh "aws s3 cp ../deploy-bundle.zip s3:/vprofile123-bundle/deploy-bundle-${version}.zip"
+                        sh "aws s3 cp ../deploy-bundle.zip s3://vprofile123-bundle/deploy-bundle-${version}.zip"
                     }
                 }
             }
