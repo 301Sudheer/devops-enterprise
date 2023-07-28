@@ -23,7 +23,7 @@ ENV CATALINA_HOME /opt/tomcat
 ENV PATH $PATH:$CATALINA_HOME/bin
 
 # Copy vprofile.jar to Tomcat's webapps directory
-COPY vprofile-1.0.4.war /opt/tomcat/webapps/
+COPY *.war /opt/tomcat/webapps/
 
 # Expose port 8080
 EXPOSE 8080
