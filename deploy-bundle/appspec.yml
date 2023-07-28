@@ -8,11 +8,11 @@ hooks:
     - location: beforeinstall.sh
       timeout: 900
   AfterInstall:
-    - location: after-install.sh
+    - location: afterinstall.sh
       timeout: 900
   ApplicationStart:
-    - location: application-start.sh
+    - location: applicationstart.sh
       timeout: 900
   ValidateService:
-    - location: validate-service.sh
+    - location: validateservice.sh
       timeout: 900
