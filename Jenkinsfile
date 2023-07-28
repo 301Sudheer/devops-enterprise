@@ -129,7 +129,7 @@ pipeline {
             def deploymentGroup
             switch (params.DEPLOY_ENV) {
                 case 'QA':
-                deploymentGroup = 'vprofile-docker'
+                deploymentGroup = 'vprofile-docker-prod'
                 break
                 case 'Stage':
                 deploymentGroup = 'Vprofile-App-stage'
@@ -141,7 +141,7 @@ pipeline {
                 error('Invalid environment selected')
             }
 
-            sh "aws deploy create-deployment --application-name  Vprofile-app --deployment-group-name ${deploymentGroup} --s3-location bucket=vprofile123-bundle,key=deploy-bundle-${version}.zip,bundleType=zip"
+            sh "aws deploy create-deployment --application-name  Vprofile-docker --deployment-group-name ${deploymentGroup} --s3-location bucket=vprofile123-bundle,key=deploy-bundle-${version}.zip,bundleType=zip"
             }
         }
     }
