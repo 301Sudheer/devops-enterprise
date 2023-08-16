@@ -129,13 +129,13 @@ pipeline {
             def namespace
             switch (params.DEPLOY_ENV) {
                 case 'QA':
-                namespace = 'vprofile-docker-prod'
+                namespace = 'vprofile-eks-qa'
                 break
                 case 'Stage':
-                namespace = 'Vprofile-App-stage'
+                namespace = 'vprofile-eks-stage'
                 break
                 case 'Prod':
-                namespace = 'Vprofile-App-production'
+                namespace = 'vprofile-eks-prod'
                 break
                 default:
                 error('Invalid environment selected')
