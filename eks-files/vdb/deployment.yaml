@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vprofile-db
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vprofile-db
+  template:
+    metadata:
+      labels:
+        app: vprofile-db
+    spec:
+      containers:
+        - name: vprofile-db
+          image: 637336795945.dkr.ecr.us-east-1.amazonaws.com/vprofile-db:latest
+          ports:
+            - containerPort: 3306
+      imagePullSecrets:
+            - name: ecr-credentials

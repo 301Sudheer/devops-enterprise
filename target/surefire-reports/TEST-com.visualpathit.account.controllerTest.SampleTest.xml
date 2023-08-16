@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="com.visualpathit.account.controllerTest.SampleTest" time="0.038" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="com.visualpathit.account.controllerTest.SampleTest" time="0.027" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.7+10-post-Ubuntu-3ubuntu1"/>
@@ -33,12 +33,12 @@
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="5.15.90.1-microsoft-standard-WSL2"/>
     <property name="library.jansi.path" value="/usr/share/maven/lib/jansi-native"/>
-    <property name="user.home" value="/root"/>
+    <property name="user.home" value="/home/sijju999"/>
     <property name="user.timezone" value="Europe/London"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="11"/>
-    <property name="user.name" value="root"/>
+    <property name="user.name" value="sijju999"/>
     <property name="java.class.path" value="/usr/share/maven/boot/plexus-classworlds-2.x.jar"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
@@ -59,5 +59,5 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.visualpathit.account.controllerTest.SampleTest" name="SampleTestHappyFlow" time="0.038"/>
+  <testcase classname="com.visualpathit.account.controllerTest.SampleTest" name="SampleTestHappyFlow" time="0.027"/>
 </testsuite>
