@@ -15,7 +15,7 @@
     - name: Build Docker image
       command: docker build -t 060347994451.dkr.ecr.ap-south-1.amazonaws.com/devops:vprofileapp-{{ version }} .
       args:
-        chdir: /Docker-files/app
+        chdir: Docker-files/app
 
     - name: Docker login to ECR
       command: aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 060347994451.dkr.ecr.ap-south-1.amazonaws.com
