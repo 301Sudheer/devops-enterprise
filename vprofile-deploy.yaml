@@ -4,6 +4,7 @@
   gather_facts: no
   vars:
     version: ""
+    DEPLOY_ENV: ""
   tasks:
     - name: Build with Maven and tests
       command: mvn clean package 
