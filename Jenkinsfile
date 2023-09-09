@@ -53,20 +53,20 @@ pipeline {
                 }
             }
         }
-        stage("Build Artifact") {
+        stage("Ansible Vprofile-deploy") {
             steps {
                 script {
-                    sh 'mvn clean package -DskipTests'
+                    sh 'ansible-playbook vprofile-deploy.yaml'
                 }
-            }
+            }   
         }
-        stage("Test") {
-            steps {
-                script {
-                    sh 'mvn test'
-                }
-            }
-        }
+        // stage("Test") {
+        //     steps {
+        //         script {
+        //             sh 'mvn test'
+        //         }
+        //     }
+        // }
         // stage('provision server') {
         //     // environment {
         //     //     // AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
@@ -94,23 +94,23 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Copy') {
-            steps {
-                sh 'cp target/*.war Docker-files/app/'
-            }
-        }
-        stage('Dockerize') {
-            steps {
-                script {
-                    dir('Docker-files/app') {
-                        sh "docker build -t 484472757370.dkr.ecr.ap-south-1.amazonaws.com/vprofile-qa:vprofileapp-${version} . "
-                        sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 484472757370.dkr.ecr.ap-south-1.amazonaws.com'
-                        sh "docker push 484472757370.dkr.ecr.ap-south-1.amazonaws.com/vprofile-qa:vprofileapp-${version}"
-                        sh "sed -i s/%version%/${version}/g /var/lib/jenkins/workspace/vprofile-enterprise/eks-files/vapp/deployment.yaml"
-                    }
-                }
-            }
-        }
+        // stage('Copy') {
+        //     steps {
+        //         sh 'cp target/*.war Docker-files/app/'
+        //     }
+        // }
+        // stage('Dockerize') {
+        //     steps {
+        //         script {
+        //             dir('Docker-files/app') {
+        //                 sh "docker build -t 484472757370.dkr.ecr.ap-south-1.amazonaws.com/vprofile-qa:vprofileapp-${version} . "
+        //                 sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 484472757370.dkr.ecr.ap-south-1.amazonaws.com'
+        //                 sh "docker push 484472757370.dkr.ecr.ap-south-1.amazonaws.com/vprofile-qa:vprofileapp-${version}"
+        //                 sh "sed -i s/%version%/${version}/g /var/lib/jenkins/workspace/vprofile-enterprise/eks-files/vapp/deployment.yaml"
+        //             }
+        //         }
+        //     }
+        // }
         //  stage('Create Deploy Bundle') {
         //     steps {
         //         script {
@@ -123,30 +123,30 @@ pipeline {
         //     }
         // }
 
-        stage('Deploy to EKS') {
-        steps {
-            script {
-            def namespace
-            switch (params.DEPLOY_ENV) {
-                case 'QA':
-                namespace = 'vprofile-eks-qa'
-                break
-                case 'Stage':
-                namespace = 'vprofile-eks-stage'
-                break
-                case 'Prod':
-                namespace = 'vprofile-eks-prod'
-                break
-                default:
-                error('Invalid environment selected')
-            }
+    //     stage('Deploy to EKS') {
+    //     steps {
+    //         script {
+    //         def namespace
+    //         switch (params.DEPLOY_ENV) {
+    //             case 'QA':
+    //             namespace = 'vprofile-eks-qa'
+    //             break
+    //             case 'Stage':
+    //             namespace = 'vprofile-eks-stage'
+    //             break
+    //             case 'Prod':
+    //             namespace = 'vprofile-eks-prod'
+    //             break
+    //             default:
+    //             error('Invalid environment selected')
+    //         }
 
-            sh "kubectl apply -f ./eks-files/vapp/ -n ${namespace}"
-            sh "kubectl apply -f ./eks-files/vdb/ -n ${namespace}"
+    //         sh "kubectl apply -f ./eks-files/vapp/ -n ${namespace}"
+    //         sh "kubectl apply -f ./eks-files/vdb/ -n ${namespace}"
 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
    }
 }
 
