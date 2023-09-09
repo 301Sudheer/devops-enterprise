@@ -56,7 +56,7 @@ pipeline {
         stage("Ansible Vprofile-deploy") {
             steps {
                 script {
-                    sh "ansible-playbook vprofile-deploy.yaml -e version=${version}"
+                    sh "ansible-playbook vprofile-deploy.yaml -e version=${version} -e DEPLOY_ENV=${DEPLOY_ENV}"
                 }
             }   
         }
