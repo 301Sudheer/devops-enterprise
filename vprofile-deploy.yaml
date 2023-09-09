@@ -8,8 +8,8 @@
 
     - name: Copy artifact to Docker folder
       copy:
-        src: target/*.war
-        dest: /Docker-files/app/
+        src: /var/lib/jenkins/workspace/vprofile-enterprise-final/target/*.war
+        dest: ./Docker-files/app/
 
 
     - name: Build Docker image
