@@ -39,7 +39,7 @@
 
     - name: Set namespace based on DEPLOY_ENV
       set_fact:
-        namespace: "{{ lookup('dict', {'QA': 'vprofile-eks-qa', 'Stage': 'vprofile-eks-stage', 'Prod': 'vprofile-eks-prod'})[DEPLOY_ENV] }}"
+        namespace: "{{ {'QA': 'vprofile-eks-qa', 'Stage': 'vprofile-eks-stage', 'Prod': 'vprofile-eks-prod'}[DEPLOY_ENV] }}"
       when: DEPLOY_ENV in ['QA', 'Stage', 'Prod']
 
     - name: Apply vapp and vdb manifests
