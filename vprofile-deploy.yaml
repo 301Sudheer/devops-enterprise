@@ -7,7 +7,7 @@
       command: mvn clean package 
 
     - name: Copy artifact to Docker folder
-      command: cp ./target/*.war ./Docker-files/app/
+      command: cp target/*.war Docker-files/app/
 
 
     - name: Build Docker image
