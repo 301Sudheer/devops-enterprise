@@ -16,9 +16,16 @@
       command: docker build -t 060347994451.dkr.ecr.ap-south-1.amazonaws.com/devops:vprofileapp-{{ version }} .
       args:
         chdir: Docker-files/app
+        
+    - name: Get ECR login password
+      shell: aws ecr get-login-password --region ap-south-1
+      register: ecr_login
 
     - name: Docker login to ECR
-      command: aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 060347994451.dkr.ecr.ap-south-1.amazonaws.com
+      docker_login:
+        registry_url: 060347994451.dkr.ecr.ap-south-1.amazonaws.com
+        username: AWS
+        password: "{{ ecr_login.stdout }}"
 
     - name: Push Docker image to ECR
       command: docker push 060347994451.dkr.ecr.ap-south-1.amazonaws.com/devops:vprofileapp-{{ version }}
