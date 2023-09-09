@@ -43,7 +43,7 @@
       when: DEPLOY_ENV in ['QA', 'Stage', 'Prod']
 
     - name: Apply vapp and vdb manifests
-      command: kubectl apply -f /eks-files/{{ item }}/ -n {{ namespace }}
+      command: kubectl apply -f eks-files/{{ item }}/ -n {{ namespace }}
       with_items:
         - vapp
         - vdb
